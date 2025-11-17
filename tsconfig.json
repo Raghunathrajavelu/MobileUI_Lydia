@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2022", "dom"],
+    "types": [
+      "node",
+      "@wdio/globals/types",
+      "@wdio/cucumber-framework"
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "pageobjects/*": ["pageobjects/*"]
+    },
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src", "wdio.conf.ts"]
+}
