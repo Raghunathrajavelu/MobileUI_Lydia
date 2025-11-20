@@ -1,5 +1,5 @@
 export class ArticlePage {
-    constructor(private driver: WebdriverIO.Browser) { }
+    constructor(private driver: WebdriverIO.Browser) {}
 
     get closePopupButton() {
         return this.driver.$('id:org.wikipedia.alpha:id/closeButton');
@@ -34,10 +34,8 @@ export class ArticlePage {
     }
 
     get cresusPageImage() {
-        // Image at the top of the Crésus page
         return this.driver.$('id=org.wikipedia.alpha:id/view_page_header_image');
     }
-
 
     async dismissPopup() {
         await this.closePopupButton.click();

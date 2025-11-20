@@ -4,6 +4,7 @@ Feature: Wikipedia Mobile App Test
   
     Given the user completes onboarding
     When the user searches for Lydia
+    And the user selects the Lydia city from the search results
     And the user dismisses the popup
     And the user changes the language to French
     Then the page should be translated to French

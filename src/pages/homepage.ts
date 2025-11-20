@@ -1,18 +1,14 @@
 import type { Browser, ChainablePromiseElement } from 'webdriverio';
 
 export class HomePage {
-    constructor(private driver: WebdriverIO.Browser) { }
+    constructor(private driver: WebdriverIO.Browser) {}
 
     get searchContainer(): ChainablePromiseElement {
-        return this.driver.$(
-            'android=new UiSelector().resourceId("org.wikipedia.alpha:id/search_container")'
-        );
+        return this.driver.$('android=new UiSelector().resourceId("org.wikipedia.alpha:id/search_container")');
     }
 
     get searchInput(): ChainablePromiseElement {
-        return this.driver.$(
-            'android=new UiSelector().resourceId("org.wikipedia.alpha:id/search_src_text")'
-        );
+        return this.driver.$('android=new UiSelector().resourceId("org.wikipedia.alpha:id/search_src_text")');
     }
 
     get lydiaSearchResult(): ChainablePromiseElement {
@@ -22,16 +18,13 @@ export class HomePage {
     }
 
     async searchForLydia() {
-        // click search bar
         await (await this.searchContainer).click();
-
-        // type "Lydia"
         await (await this.searchInput).setValue("Lydia");
+    }
 
-        // wait until the specific Lydia result appears
-        await (await this.lydiaSearchResult).waitForDisplayed();
-
-        // click on the Lydia result
-        await (await this.lydiaSearchResult).click();
+    async selectLydiaResult() {
+        const result = await this.lydiaSearchResult;
+        await result.waitForDisplayed();
+        await result.click();
     }
 }

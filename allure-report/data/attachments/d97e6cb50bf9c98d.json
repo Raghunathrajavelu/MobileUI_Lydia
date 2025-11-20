@@ -1,0 +1,4 @@
+{
+  "using": "-android uiautomator",
+  "value": "new UiSelector().textContains(\"ancien pays d'asie mineure\")"
+}
