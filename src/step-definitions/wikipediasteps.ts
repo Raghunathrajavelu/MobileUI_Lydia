@@ -1,29 +1,48 @@
-import { Given, Then, When } from '@cucumber/cucumber';
-import { OnboardingPage } from '../pageobjects/onboardingpage';
-import { HomePage } from '../pageobjects/homepage';
+import { Given, When, Then } from '@wdio/cucumber-framework';
+import { OnboardingPage } from '../pages/onboardingpage';
+import { HomePage } from '../pages/homepage';
+import { ArticlePage } from '../pages/articlePage';
 
-let onboardingPage: OnboardingPage;
-let homePage: HomePage;
+let onboarding: OnboardingPage;
+let home: HomePage;
+let article: ArticlePage;
 
-Given('the Wikipedia app is launched', async () => {
-    onboardingPage = new OnboardingPage(browser);
-    homePage = new HomePage(browser);
+Given('the user completes onboarding', async () => {
+    onboarding = new OnboardingPage(driver);
+    await onboarding.completeOnboarding();
 });
 
-When('I complete onboarding', async () => {
-    await onboardingPage.completeOnboarding();
+When('the user searches for Lydia', async () => {
+    home = new HomePage(driver);
+    await home.searchForLydia();
 });
 
-When('I search for {string}', async (cityName: string) => {
-    await homePage.searchCity(cityName);
+When('the user dismisses the popup', async () => {
+    article = new ArticlePage(driver);
+    await article.dismissPopup();
 });
 
-When('I scroll and select the city {string} and dismiss popup', async (cityName: string) => {
-    await homePage.scrollToCityAndDismissPopup(cityName);
+When('the user changes the language to French', async () => {
+    await article.languageButton.click();
+    await article.languageSearchButton.click();
+    await article.languageSearchInput.setValue('French');
+    await article.frenchLanguageOption.click();
 });
 
-Then('I change the website language to {string}', async (language: string) => {
-    if (language.toLowerCase() === 'french') {
-        await homePage.changeLanguageToFrench();
-    }
+Then('the page should be translated to French', async () => {
+    await expect(article.frenchTextValidation).toBeDisplayed();
 });
+
+When('the user scrolls to Crésus and opens it in a new tab', async () => {
+    await article.cresusElement.scrollIntoView();
+    await article.cresusElement.click();
+    await article.openInNewTabOption.click();
+});
+
+Then('the Crésus page should be displayed', async () => {
+    const pageImage = await article.cresusPageImage;
+    await pageImage.waitForDisplayed();
+    await expect(pageImage).toBeDisplayed();
+
+});
+

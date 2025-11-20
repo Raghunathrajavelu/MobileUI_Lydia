@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//android.widget.TextView[@resource-id=\"org.wikipedia.alpha:id/page_list_item_title\" and @text=\"Lydia\"]"
+}
